@@ -1,0 +1,47 @@
+tar xzvf zlib-1.2.3.tar.gz
+cd zlib-1.2.3
+mkdir /arm/madplay/output -p
+./configure --prefix=/arm/madplay/output/ --shared
+vi Makefile
+修改Makefile为如下:
+==========================================
+CROSS=arm-linux-
+
+CC=${CROSS}gcc
+CPP=${CROSS}gcc -E
+
+CFLAGS=-fPIC -O3 -DUSE_MMAP
+LDFLAGS=-L. libz.so.1.2.3
+LDSHARED=${CROSS}gcc -shared -Wl,-soname,libz.so.1
+LIBS=libz.so.1.2.3
+SHAREDLIB=libz.so
+SHAREDLIBV=libz.so.1.2.3
+SHAREDLIBM=libz.so.1
+
+AR=${CROSS}ar rc
+RANLIB=${CROSS}ranlib
+==========================================
+make
+make install
+
+tar xzvf libid3tag-0.15.1b.tar.gz
+cd libid3tag-0.15.1b
+ ./configure --prefix=/arm/madplay/output/ --host=arm-linux --enable-shared --enable-static CPPFLAGS=-I/arm/madplay/output/include/ LDFLAGS=-L/arm/madplay/output/lib/
+make
+make install
+
+tar xzvf libmad-0.15.1b.tar.gz
+cd libmad-0.15.1b
+ ./configure --prefix=/arm/madplay/output/ --host=arm-linux
+make
+make install
+
+tar xzvf madplay-0.15.2b.tar.gz
+cd madplay-0.15.2b
+./configure --prefix=/arm/madplay/output --host=arm-linux --disable-shared CPPFLAGS=-I/arm/madplay/output/include LDFLAGS=-L/arm/madplay/output/lib
+make
+make install
+
+cp -d lib/* /opt/FriendlyARM/mini2440/first_fs/lib/
+cp bin/* /opt/FriendlyARM/mini2440/first_fs/bin/
+

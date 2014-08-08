@@ -1,0 +1,1 @@
+cmd_/opt/FriendlyARM/mini2440/first_fs/my_drv/11th_ts/built-in.o :=  rm -f /opt/FriendlyARM/mini2440/first_fs/my_drv/11th_ts/built-in.o; arm-linux-ar rcs /opt/FriendlyARM/mini2440/first_fs/my_drv/11th_ts/built-in.o

@@ -1,0 +1,46 @@
+set bootargs noinitrd root=/dev/mtdblock3 init=/linuxrc console=ttySAC0
+mount -t nfs -o nolock,vers=2 192.168.1.108:/opt/FriendlyARM/mini2440/first_fs /mnt
+nfs挂载根文件系统启动
+set bootargs console=ttySAC0 root=/dev/nfs nfsroot=192.168.1.108:/opt/FriendlyARM/mini2440/first_fs ip=192.168.1.230:192.168.1.108:192.168.1.1:255.255.255.0::eth0:off
+
+set bootargs console=ttySAC0 root=/dev/nfs nfsroot=192.168.1.108:/opt/FriendlyARM/mini2440/mini_fs ip=192.168.1.230:192.168.1.108:192.168.1.1:255.255.255.0::eth0:off
+
+mount -t nfs -o nolock,vers=2 192.168.1.108:/opt/FriendlyARM/mini2440/rootfs_qtopia_qt4_bak/rootfs_qtopia_qt4 /mnt
+
+nfs 30000000 192.168.1.108:/opt/FriendlyARM/mini2440/linux-2.6.22.6_jz2440/arch/arm/boot/uImage_no_nand;bootm 30000000
+
+nfs 30000000 192.168.1.108:/opt/FriendlyARM/mini2440/linux-2.6.22.6_jz2440/arch/arm/boot/uImage;bootm 30000000
+
+nfs 30000000 192.168.1.108:/opt/FriendlyARM/mini2440/linux-2.6.22.6_jz2440/arch/arm/boot/uImage_nolcd;bootm 30000000
+
+nfs 30000000 192.168.1.108:/opt/FriendlyARM/mini2440/linux-2.6.22.6_jz2440/arch/arm/boot/uImage_nots;bootm 30000000
+
+nfs 30000000 192.168.1.108:/opt/FriendlyARM/mini2440/linux-2.6.22.6_jz2440/arch/arm/boot/uImage_nohid;bootm 30000000
+
+nfs 30000000 192.168.1.108:/opt/FriendlyARM/mini2440/linux-2.6.22.6_jz2440/arch/arm/boot/uImage_uda;bootm 30000000
+
+
+用3.4.1的编译器
+export PATH=/usr/kerberos/sbin:/usr/kerberos/bin:/usr/lib/ccache:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin:/usr/local/arm/3.4.1/bin
+
+编译linux-2.6.22.6_jz2440 用的是3.4.1的编译器(arm-linux-gcc)
+cp config_ok .config
+make menuconfig  
+
+去掉了LCD的选项
+<>S3C2410 LCD framebuffer support       
+
+make uImage
+
+lib库用的是gcc-3.4.5-glibc-2.3.6/arm-linux/lib/*.so*
+
+busybox用的是busybox-1.7.0用的是3.4.1的编译器(arm-linux-gcc)
+用的是默认的配置
+
+编译驱动时用的也都是3.4.1的编译器
+
+4.4.3
+export PATH=/usr/kerberos/sbin:/usr/kerberos/bin:/usr/lib/ccache:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin:/opt/FriendlyARM/toolschain/4.4.3/bin/
+
+find -type f | xargs -n 5 touch
+

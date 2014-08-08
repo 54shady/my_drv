@@ -1,0 +1,10 @@
+prefix=/opt/FriendlyARM/mini2440/first_fs/my_drv/11th_ts/tslib/tmp
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: tslib
+Description: Touchscreen Access Library
+Version: 0.0.2
+Libs: -L${libdir} -lts
+Cflags: -I${includedir}

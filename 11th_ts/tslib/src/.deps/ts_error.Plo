@@ -1,0 +1,54 @@
+ts_error.lo .libs/ts_error.o: ts_error.c ../config.h \
+  /usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/include/stdarg.h \
+  /usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/stdio.h \
+  /usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/features.h \
+  /usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/sys/cdefs.h \
+  /usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/gnu/stubs.h \
+  /usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/include/stddef.h \
+  /usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/bits/types.h \
+  /usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/bits/wordsize.h \
+  /usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/bits/typesizes.h \
+  /usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/libio.h \
+  /usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/_G_config.h \
+  /usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/wchar.h \
+  /usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/bits/wchar.h \
+  /usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/gconv.h \
+  /usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/bits/stdio_lim.h \
+  /usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/bits/sys_errlist.h \
+  /usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/bits/stdio.h
+
+../config.h:
+
+/usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/include/stdarg.h:
+
+/usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/stdio.h:
+
+/usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/features.h:
+
+/usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/sys/cdefs.h:
+
+/usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/gnu/stubs.h:
+
+/usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/include/stddef.h:
+
+/usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/bits/types.h:
+
+/usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/bits/wordsize.h:
+
+/usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/bits/typesizes.h:
+
+/usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/libio.h:
+
+/usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/_G_config.h:
+
+/usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/wchar.h:
+
+/usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/bits/wchar.h:
+
+/usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/gconv.h:
+
+/usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/bits/stdio_lim.h:
+
+/usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/bits/sys_errlist.h:
+
+/usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/bits/stdio.h:

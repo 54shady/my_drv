@@ -1,0 +1,72 @@
+drv:
+platform_driver_register(struct platform_driver *drv)
+{
+	driver_register(struct device_driver * drv)
+	{
+		bus_add_driver(struct device_driver *drv)
+		{
+			driver_attach(struct device_driver * drv)
+			{
+				bus_for_each_dev(...., __driver_attach);
+				{
+					/* 对每一个dev链表里的dev都调用__driver_attach函数 */
+					while ((dev = next_device(&i)) && !error)
+						fn(dev, data);
+				}
+			}
+		}
+	}
+}
+
+其中的fn就是__driver_attach
+
+static int __driver_attach(struct device * dev, void * data)
+{
+	driver_probe_device(struct device_driver * drv, struct device * dev)
+	{
+		/* 调用总线的match函数来比较是否支持 */
+		bus->match(dev, drv);
+	
+		/* 支持的话就调用 */
+		really_probe(struct device *dev, struct device_driver *drv)
+		{
+			/* 调用drv里的probe函数 */
+			if (dev->bus->probe) {
+				ret = dev->bus->probe(dev);
+				if (ret)
+					goto probe_failed;
+			} else if (drv->probe) {
+				ret = drv->probe(dev);
+				if (ret)
+					goto probe_failed;
+			}
+		}
+	}
+}
+
+dev:
+platform_device_register(struct platform_device * pdev)
+{
+	platform_device_add(struct platform_device *pdev)
+	{
+		device_add(struct device *dev)
+		{
+			bus_attach_device(struct device * dev)
+			{
+				if (dev->driver)
+				{
+					device_bind_driver(dev);
+				} 
+				else 
+				{
+					bus_for_each_drv(dev->bus, NULL, dev, __device_attach)
+					{
+						/* 对每一个drv链表里的drv调用__device_attach */
+						while ((drv = next_driver(&i)) && !error)
+							fn(drv, data);
+					}
+				}
+			}
+		}
+	}
+}

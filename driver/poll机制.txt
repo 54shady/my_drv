@@ -1,0 +1,28 @@
+app:poll
+-------------------------------------------------------
+kernel:
+
+sys_poll
+{
+	do_sys_poll
+	{
+		poll_initwait(&table)
+		{
+			/* 注册回调函数__pollwait */
+			/* 它就是我们的驱动程序执行poll_wait时，真正被调用的函数 */
+			init_poll_funcptr(&pwq->pt, __pollwait);
+		}
+		do_poll(nfds, head, &table, timeout)
+		{
+			do_pollfd(pfd, pt)
+			{
+				......
+				/* 调用我们驱动程序里自己实现的poll函数 */
+				if (file->f_op && file->f_op->poll)
+				mask = file->f_op->poll(file, pwait);
+				......	
+			}
+			__timeout = schedule_timeout(__timeout);
+		}
+	}
+}

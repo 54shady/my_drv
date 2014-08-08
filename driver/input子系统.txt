@@ -1,0 +1,58 @@
+驱动测试：
+方法一：
+ls -l /dev/event*  
+crw-rw----    1 0        0         13,  64 Jan  1 00:00 /dev/event0
+
+insmod buttons.ko
+ls -l /dev/event*  
+crw-rw----    1 0        0         13,  64 Jan  1 00:00 /dev/event0
+crw-rw----    1 0        0         13,  65 Jan  1 02:45 /dev/event1
+所以 /dev/event1  就对应buttons.ko这个驱动
+
+hexdump /dev/event1
+按下按键看输出情况，下面是按下我们设置的按键(小写L)时的情况
+		tv_sec    tv_usec   type code value 
+0000000 28f4 0000 07f2 000f 0001 0026 0001 0000
+0000010 28f4 0000 07fd 000f 0000 0000 0000 0000
+0000020 28f5 0000 713a 0002 0001 0026 0000 0000
+0000030 28f5 0000 7144 0002 0000 0000 0000 0000
+由代码可知，我们hexdump /dev/event1 的操作相当于执行了open 和read 两个函数
+在read中我们调用的是
+evdev_fops
+	evdev_read	
+		evdev_event_to_user
+			copy_to_user(buffer, event, sizeof(struct input_event)))
+通过copy_to_user把event结构体拷贝给应用层
+
+struct timeval {
+	time_t		tv_sec;		/* seconds */
+	suseconds_t	tv_usec;	/* microseconds */
+};
+
+struct input_event {
+	struct timeval time;
+	__u16 type;
+	__u16 code;
+	__s32 value;
+};
+这样就可以知道hexdump得到的数据结构就是这个结构体
+
+type对应的是之前我们设置的EV_KEY
+	set_bit(EV_KEY, buttons_input_dev->evbit);
+
+code对应的是之前我们设置的KEY_L
+	set_bit(KEY_L, buttons_input_dev->keybit);
+
+value对应的是之前我们设置的最后一个参数
+		input_event(buttons_input_dev, EV_KEY, pindesc->key_val, 0);
+
+方法二：//不太懂为什么要用tty1这里比较复杂以后在搞
+cat /dev/tty1
+按下按键输入回车后才会显示出结果
+比如按下ls回车后
+ls
+		
+方法三：
+由上面可以知道,我们按下的输入为/dev/tty1,所以可以把标准输入(0) 改为/dev/tty1
+exec 0</dev/tty1     
+这样就可以在标准输出上显示了

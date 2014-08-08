@@ -1,0 +1,1 @@
+cmd_/opt/FriendlyARM/mini2440/first_fs/my_drv/forth_drv/forth_drv.ko := arm-linux-ld -EL  -r -o /opt/FriendlyARM/mini2440/first_fs/my_drv/forth_drv/forth_drv.ko /opt/FriendlyARM/mini2440/first_fs/my_drv/forth_drv/forth_drv.o /opt/FriendlyARM/mini2440/first_fs/my_drv/forth_drv/forth_drv.mod.o

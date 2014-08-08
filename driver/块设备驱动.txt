@@ -1,0 +1,32 @@
+注册它们自己到内核,内核将显示它在 /proc/devices
+	register_blkdev
+
+这个调用唯一的任务是:
+	(1) 如果需要, 分配一个动态主编号, 并且 
+	(2) 在 /proc/devices 创建一个入口.
+
+1.	分配一个gendisk结构体
+		alloc_disk
+2.	设置
+2.1 分配一个requese_queue_t  //该队列提供读写能力
+	
+	获得一个自旋锁
+	方法1：
+		spin_lock_init(&lock);
+	方法2：
+		static DEFINE_SPINLOCK(lock);
+
+		blk_init_queue(do_request,&lock)
+		当我们分配一个请求队列时, 我们必须提供一个自旋锁来控制对那个队列的存取. 
+		这个锁由驱动提供而不是内核通常的部分, 因为, 常常, 
+		请求队列和其他的驱动数据结构在相同的临界区; 它们可能被同时存取
+
+2.2	设置gendisk其他信息	   //它提供属性：比如容量
+3.	注册：add_disk
+
+每个块驱动的核心是它的请求函数
+块驱动的请求方法有下面的原型:
+
+void request(request_queue_t *queue); 
+
+

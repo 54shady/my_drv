@@ -1,0 +1,9 @@
+CDCLK芯片的系统时钟
+I2SSCLK位时钟
+I2SLRCK决定当前传输的是左声道还是右声道数据
+I2SSDI
+I2SSDO
+
+L3MODE
+L3CLOCK
+L3DATA

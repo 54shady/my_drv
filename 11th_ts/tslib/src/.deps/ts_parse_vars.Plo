@@ -1,0 +1,70 @@
+ts_parse_vars.lo .libs/ts_parse_vars.o: ts_parse_vars.c ../config.h \
+  /usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/alloca.h \
+  /usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/features.h \
+  /usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/sys/cdefs.h \
+  /usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/gnu/stubs.h \
+  /usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/include/stddef.h \
+  /usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/string.h \
+  /usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/bits/string.h \
+  /usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/bits/string2.h \
+  /usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/stdlib.h \
+  tslib-private.h tslib.h \
+  /usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/include/stdarg.h \
+  /usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/sys/time.h \
+  /usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/bits/types.h \
+  /usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/bits/wordsize.h \
+  /usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/bits/typesizes.h \
+  /usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/time.h \
+  /usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/bits/time.h \
+  /usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/sys/select.h \
+  /usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/bits/select.h \
+  /usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/bits/sigset.h \
+  tslib-filter.h ./tslib.h
+
+../config.h:
+
+/usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/alloca.h:
+
+/usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/features.h:
+
+/usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/sys/cdefs.h:
+
+/usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/gnu/stubs.h:
+
+/usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/include/stddef.h:
+
+/usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/string.h:
+
+/usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/bits/string.h:
+
+/usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/bits/string2.h:
+
+/usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/stdlib.h:
+
+tslib-private.h:
+
+tslib.h:
+
+/usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/include/stdarg.h:
+
+/usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/sys/time.h:
+
+/usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/bits/types.h:
+
+/usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/bits/wordsize.h:
+
+/usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/bits/typesizes.h:
+
+/usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/time.h:
+
+/usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/bits/time.h:
+
+/usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/sys/select.h:
+
+/usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/bits/select.h:
+
+/usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/bits/sigset.h:
+
+tslib-filter.h:
+
+./tslib.h:

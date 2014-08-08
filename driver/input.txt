@@ -1,0 +1,78 @@
+输入子系统框架：
+
+drivers/input.c  核心层
+
+input_init
+{
+	err = register_chrdev(INPUT_MAJOR, "input", &input_fops);
+}
+
+static const struct file_operations input_fops = {
+	.owner = THIS_MODULE,
+	.open = input_open_file,
+};
+
+input_open_file
+{
+	struct input_handler *handler = input_table[iminor(inode) >> 5];
+	new_fops = fops_get(handler->fops)	
+}
+
+/* 设置input_table */
+input_register_handler
+{
+	input_table[handler->minor >> 5] = handler;
+}
+
+
+input_register_handler函数被evdev.c,keyboard.c 等调用
+
+input.c <----------input_register_handler-------evdev.c
+
+input_register_handler
+{
+	input_table[handler->minor >> 5] = handler;
+	
+	/* 放入链表 */
+	list_add_tail(&handler->node, &input_handler_list);
+
+	list_for_each_entry(dev, &input_dev_list, node)
+			input_attach_handler(dev, handler);
+			{
+				/* 根据input_handler的id_table判断能否支持这个input_dev */
+				id = input_match_device(handler->id_table, dev);
+
+				/* 能支持的话就调用handler的connect函数 */
+				error = handler->connect(handler, dev, id);
+			}
+}
+
+input_register_device
+{
+	list_add_tail(&dev->node, &input_dev_list);
+
+	/* 对每一个handler都调用input_attach_handler 函数 */
+	list_for_each_entry(handler, &input_handler_list, node)
+			input_attach_handler(dev, handler);
+			{
+				/* 根据input_handler的id_table判断能否支持这个input_dev */
+				id = input_match_device(handler->id_table, dev);
+
+				/* 能支持的话就调用handler的connect函数 */
+				error = handler->connect(handler, dev, id);
+			}
+}
+
+connect 函数实现各有各的区别以evdev.c为例，此handler的connect函数为
+evdev_connect
+{
+	input_register_handle
+	{
+		/* 让dev的h_list指向handle */
+		list_add_tail(&handle->d_node, &handle->dev->h_list);
+
+		/* 让handler的h_list指向handle */
+		list_add_tail(&handle->h_node, &handler->h_list);
+	}
+}
+

@@ -1,0 +1,1 @@
+cmd_/opt/FriendlyARM/mini2440/first_fs/my_drv/10th_lcd/16bpp/lcd.ko := arm-linux-ld -EL  -r -o /opt/FriendlyARM/mini2440/first_fs/my_drv/10th_lcd/16bpp/lcd.ko /opt/FriendlyARM/mini2440/first_fs/my_drv/10th_lcd/16bpp/lcd.o /opt/FriendlyARM/mini2440/first_fs/my_drv/10th_lcd/16bpp/lcd.mod.o

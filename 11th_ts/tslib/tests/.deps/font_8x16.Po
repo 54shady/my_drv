@@ -1,0 +1,21 @@
+font_8x16.o font_8x16.o: font_8x16.c font.h \
+  /usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/linux/types.h \
+  /usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/linux/posix_types.h \
+  /usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/linux/stddef.h \
+  /usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/linux/compiler.h \
+  /usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/asm/posix_types.h \
+  /usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/asm/types.h
+
+font.h:
+
+/usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/linux/types.h:
+
+/usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/linux/posix_types.h:
+
+/usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/linux/stddef.h:
+
+/usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/linux/compiler.h:
+
+/usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/asm/posix_types.h:
+
+/usr/local/arm/3.4.1/bin/../lib/gcc/arm-linux/3.4.1/../../../../arm-linux/sys-include/asm/types.h:

@@ -1,0 +1,41 @@
+使用内核的USB驱动,插入USB鼠标时的信息如下
+# usb 1-1: new low speed USB device using s3c2410-ohci and address 2
+usb 1-1: configuration #1 chosen from 1 choice
+input: USB Optical Mouse as /class/input/input0
+input,hiddev96: USB HID v1.10 Mouse [USB Optical Mouse] on usb-s3c24xx-1
+拔出鼠标的信息如下：
+usb 1-1: USB disconnect, address 2
+
+make menuconfig
+Device Drivers
+	HID Devices  
+		<> USB Human Interface Device (full HID) support    
+
+去掉内核的USB驱动程序,用该内核启动,加载自己写的USB驱动程序
+
+insmod usbmouse_as_key.ko
+插入鼠标,拔出鼠标进行测试
+
+没装驱动前:
+# usb 1-1: new low speed USB device using s3c2410-ohci and address 2
+usb 1-1: configuration #1 chosen from 1 choice
+拔出：
+usb 1-1: USB disconnect, address 2
+装驱动后：
+# usb 1-1: new low speed USB device using s3c2410-ohci and address 3
+usb 1-1: configuration #1 chosen from 1 choice
+usbmouse_as_key_probe is being called
+拔出：
+# usb 1-1: USB disconnect, address 3
+usbmouse_as_key_disconnect is being called
+
+3th测试：
+insmod usbmouse_as_key.ko
+插入鼠标后可以发现多了一个/dev/event
+移动鼠标观察数据
+
+4th:
+insmod usbmouse_as_key.ko
+ls /dev/event*
+cat /dev/tty1   按鼠标左右键后按中键
+hexdump /dev/event0

@@ -1,0 +1,40 @@
+nand_init
+{
+	nand_init_chip
+	{
+		board_nand_init
+		{
+			初始化时序，使能NAND FLASH，初始化ECC，禁止片选
+			设置nand结构体
+		}
+
+		nand_scan
+		{
+			nand_scan_ident
+			{
+				nand_set_defaults
+				{
+					设置默认的函数
+				}
+				nand_get_flash_type
+				{
+					/* Select the device */
+					/* Send the command for reading device ID */
+					/* Read manufacturer and device IDs */
+				}
+			}
+
+			nand_scan_tail
+			{
+				/*正常(nand_scanf)扫描的第二个阶段,用默认的函数填充为初始化的函数指针*/
+				/*扫描坏块*/
+			}
+		}
+
+		/* Register an initialized NAND mtd device with the U-Boot NAND command. */
+		nand_register
+		{
+			add_mtd_device
+		}
+	}
+}

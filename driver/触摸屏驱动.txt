@@ -1,0 +1,30 @@
+触摸屏使用过程：
+1.按下，产生INT_TC中断              //TC -->  touch change
+2.在中断处理函数里启动ADC转换X,Y坐标
+3.ADC结束,产生ADC中断
+4.在ADC中断处理函数里上报(input_event),启动定时器
+5.定时器时间到,再次启动ADC,目的是为了能够处理长按和滑动的情况
+6.松开触摸屏
+
+
+驱动编写：
+/* 1.分配一个input_dev结构体 */
+/* 2. 设置 */
+	/* 2.1 能产生哪类事件 */
+	/* 按键类 */
+	set_bit(EV_KEY, s3c_ts_input_dev->evbit);
+
+	/* 绝对位移类 */
+	set_bit(EV_ABS, s3c_ts_input_dev->evbit);
+
+	/* 2.2 能产生这类事件里的哪些事件 */	
+	set_bit(BTN_TOUCH, s3c_ts_input_dev->keybit);
+	
+/* 3.注册 */
+/* 4.硬件相关的操作 */
+	/* 4.1 使能时钟(CLKCON[15]) 开启ADC 模块 */
+	/* 4.2 设置S3C2440的ADC/TS寄存器 */
+
+	注册IRQ_TC, IRQ_ADC
+
+/* 5.进入等待触摸屏按下模式 */

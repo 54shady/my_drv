@@ -1,0 +1,75 @@
+LCD驱动程序框架：
+
+假设
+app:  open("/dev/fb0", ...)   主设备号: 29, 次设备号: 0
+--------------------------------------------------------------
+kernel:(fbmem.c)
+         fb_open
+         	int fbidx = iminor(inode);
+         	struct fb_info *info = = registered_fb[0];
+
+app:  read()
+---------------------------------------------------------------
+kernel:
+		fb_read
+			int fbidx = iminor(inode);
+			struct fb_info *info = registered_fb[fbidx];
+			if (info->fbops->fb_read)
+				return info->fbops->fb_read(info, buf, count, ppos);
+         	
+			src = (u32 __iomem *) (info->screen_base + p);
+			dst = buffer;
+			*dst++ = fb_readl(src++);
+			copy_to_user(buf, buffer, c)         	
+
+问1. registered_fb在哪里被设置？
+答1. register_framebuffer  //就是在我们自己写的驱动程序里注册一个fb_info
+
+lcd驱动的编写：
+
+1.分配一个fb_info结构体
+	framebuffer_alloc(0, NULL);
+2.设置
+	固定参数和可变参数的设置
+	操作函数
+	其他设置
+3.硬件相关
+	gpio配置
+	根据手册设置LCD的寄存器
+	分配显存，告诉LCD控制器
+	开启LCD
+		使能LCD控制器
+		使能LCD本身
+4.注册register_framebuffer
+
+
+硬件操作：
+1.根据lcd手册设置lcd控制器
+2.分配显存，把显存地址(显存是从内存SDRAM里划出来的一块区域)告诉lcd控制器
+3.配置引脚用于lcd
+
+fb_info->fix.smem_len = 240*320*16;
+有240*320个像素，每个像素可以用红绿蓝来表示,所以每个像素是2个字节
+R(5)G(6)B(5)
+每行有240*2个字节
+每列有320*2个字节
+
+测试一：
+insmod cfbimgblt.ko
+insmod cfbcopyarea.ko
+insmod cfbfillrect.ko
+insmod lcd.ko
+
+echo hello lcd > /dev/tty1  //LCD上输出 hello lcd
+cat lcd.ko > /dev/fb0    	//花屏
+
+测试二：
+修改/etc/inittab,添加一行
+tty1::askfirts:-/bin/sh
+
+insmod cfbimgblt.ko
+insmod cfbcopyarea.ko
+insmod cfbfillrect.ko
+insmod lcd.ko
+insmod buttons.ko
+按下按键上设置的ENTER按键测试ls

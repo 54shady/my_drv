@@ -1,0 +1,78 @@
+bootloader:
+	1.把内核从flash中读入到内存
+	2.设置TAG参数
+	3.启动内核：
+		a.	r0 = 0
+		b.  r1 = 机器ID
+		c.	r2 = TAG参数地址
+
+kernel:
+	1.根据r1,判断能否支持该单板,调用机器相关的初始化函数
+	2.解析TAG参数
+	3.装载驱动程序
+		网卡,flash......
+	4.挂载根文件系统
+	5.启动应用程序
+
+----------------------------------------------------------------------------
+bootloader加载内核到内存
+内核入口点是：arch/arm/kernel/head.S
+首先检查内核是否支持当前架构的处理器，
+	bl	__lookup_processor_type
+
+然后检查是否支持当前开发板。
+	bl	__lookup_machine_type
+
+通过了上面的检查之后就为调用下一阶段start_kernel函数做准备：
+1.连接内核时使用的虚拟地址，所以要设置页表、使能MMU。
+	bl	__create_page_tables
+
+	__enable_mmu
+
+2.调用C函数start_kernel之前的常规工作，包括复制数据段、清除BSS段、调用start_kernel函数
+
+/init/main.c
+start_kernel
+{
+	/* 体系结构的初始化 */
+	setup_arch(&command_line);
+
+	/* 调度系统初始化 */
+	sched_init();
+
+	/* 中断系统初始 */
+	trap_init();
+	init_IRQ();
+
+	/* 内存管理初始化 */
+	mem_init();
+
+	rest_init()
+	{
+		kernel_init()
+		{
+			/* 各设备驱动和网络初始化 */
+			do_basic_setup();
+		
+			/*
+			 * Prepare the namespace - 
+			 * decide what/where to mount, load ramdisks, etc.
+			 */
+			prepare_namespace()
+			{
+				/* 挂接根文件系 */
+				mount_root();
+			}
+
+			/* start the user-mode stuff.. */
+			init_post()
+			{
+				/* 建立系统第一个init进程  */
+				run_init_process("/sbin/init");
+				run_init_process("/etc/init");
+				run_init_process("/bin/init");
+				run_init_process("/bin/sh");
+			}
+		}
+	}
+}

@@ -1,0 +1,30 @@
+在开发板上:
+1. insmod ramblock.ko
+2. 格式化: mkdosfs /dev/ramblock
+/*busybox中并没有mkdosfs这个工具需要另外编译*/
+这里我用的是dosfstools-2.11.src.tar.gz
+
+解压后进入到dosfstools-2.11/mkdosfs/
+修改Makefile中的编译器指定为arm的
+修改前CC默认是gcc
+修改如下：
+CC=arm-linux-gcc
+然后直接make即可在当前目录下生成mkdosfs工具
+拷贝mkdosfs到开发板上/sbin/    注意需要有可执行权限即可
+
+测试方法一：
+3. 挂接: mount /dev/ramblock /mnt/
+4. 读写文件: cd /mnt, 在里面创建文件
+5. cd /   umount /mnt/
+6. 再次 mount /dev/ramblock /mnt/
+7. 看下第4步创建的文件是否还在，还在说明成功
+
+测试方法二：
+1. cat /dev/ramblock > /mnt/ramblock.bin
+7. 在PC上查看ramblock.bin
+   mount -o loop ramblock.bin /mnt
+   cd /mnt 看下是否有先前创建的文件
+
+mount /dev/ramblock /mnt/
+cp files /mnt    /*并不会立刻就将数据写入到"磁盘"中去*/
+sync				 /*想要立刻执行的话 用  sync 命令*/

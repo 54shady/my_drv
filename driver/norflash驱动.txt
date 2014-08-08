@@ -1,0 +1,83 @@
+用uboot操作读取NOR FLASH信息:
+根据芯片手册Am29LV160D  P24页说的
+往(NOR FLASH看到的)地址555写入AA
+往(NOR FLASH看到的)地址2AA写入55
+往(NOR FLASH看到的)地址555写入90 
+读(NOR FLASH看到的)0地址得到Manufacturer ID为 01
+读(NOR FLASH看到的)1地址得到Device ID
+
+根据原理图知道CPU 和NOR FLASH 的接线是
+CPU:				NOR FLASH:
+555<<1					555
+A1-------------------A0
+A2-------------------A1
+A3-------------------A2
+		.....
+所以CPU发出的地址是NOR FLASH手册上的地址左移1位的结果
+所以在uboot上操作时如下：
+
+555<<1 = AAA
+
+mw.w aaa aa    
+mw.w 554 55
+mw.w aaa 90
+md.w 0 1    	//Manufacturer ID
+md.w 2 1		//Device ID
+mw.w 0 f0		//要退出读ID的状态,就要复位
+				//往任意地址写入f0可以复位(或者退出xx模式)
+
+NOR FLASH的两种规范
+cfi(common flash interface)  jedec(老式)
+读取CFI信息：
+1.先进入读CFI模式
+往(NOR FLASH看到的)地址55写入98
+mw.w aa 98
+2.看芯片手册知道:
+读10地址得到字母Q的ASCII
+md.w 20 1
+读11地址得到字母R的ASCII
+md.w 22 1
+读12地址得到字母Y的ASCII
+md.w 24 1
+读27地址得到Device Size 0x15 所以NOR FLASH大小2的21次方2M
+md.w 4E 1
+
+3退出CFI模式
+mw.w 0 f0
+
+NOR FLASH手册:
+如何往NOR FLASH里写数据:
+往(NOR FLASH看到的)地址555写入AA
+往(NOR FLASH看到的)地址2AA写入55
+往(NOR FLASH看到的)地址555写入A0
+往你要写入的地址写入你要写入的值
+mw.w aaa aa
+mw.w 554 55
+mw.w aaa a0
+mw.w 100000 1234 	//往1M的地址写入1234
+退出写入模式
+mw.w 0 f0
+
+NOR FLASH 驱动框架：
+内核中最底层NOR FLASH硬件相关的文件 drivers\mtd\maps\Physmap.c
+
+1.分配map_info
+2.设置物理地址,虚拟地址,大小,位宽
+3.使用：do_map_probe,add_mtd_partitions
+
+
+通过配置内核支持NOR FLASH
+1.make menuconfig
+-> Device Drivers                                                   x
+	-> Memory Technology Device (MTD) support (MTD [=y])              x
+		-> Mapping drivers for chip access      
+		<M> CFI Flash device in physical memory map  
+		(0x0) Physical start address of flash mapping   
+		(0x1000000) Physical length of flash mapping   //(16M)大于等于实际的大小
+		(2)   Bank width in octets  
+2. make modules
+ 把 drivers/mtd/maps/physmap.ko拷贝到单板上
+3.在单板中
+	insmod physmap.ko
+	cat /proc/mtd	
+
